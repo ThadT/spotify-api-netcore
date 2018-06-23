@@ -11,6 +11,7 @@
     <RepositoryUrl>https://github.com/peacecwz/spotify-api-netcore.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>spotify,api,netcore</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

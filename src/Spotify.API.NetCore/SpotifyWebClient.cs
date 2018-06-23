@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl.Http;
 using Flurl.Http.Configuration;
 using Newtonsoft.Json;
 using Spotify.API.NetCore.Models;
@@ -13,16 +14,6 @@ namespace Spotify.API.NetCore
 {
     internal class SpotifyWebClient : IClient
     {
-        private readonly HttpClient _client;
-        public SpotifyWebClient(IHttpClientFactory httpClientFactory)
-        {
-            var handler = CreateClientHandler(ProxyConfig);
-
-            if (httpClientFactory == null)
-                _client = new HttpClient(handler);
-            else
-                _client = httpClientFactory.CreateHttpClient(handler);
-        }
 
         public JsonSerializerSettings JsonSettings { get; set; }
 
@@ -44,14 +35,9 @@ namespace Spotify.API.NetCore
 
         public Tuple<ResponseInfo, byte[]> DownloadRaw(string url, Dictionary<string, string> headers = null)
         {
-            if (headers != null)
-            {
-                foreach (KeyValuePair<string, string> headerPair in headers)
-                {
-                    _client.DefaultRequestHeaders.TryAddWithoutValidation(headerPair.Key, headerPair.Value);
-                }
-            }
-            using (HttpResponseMessage response = Task.Run(() => _client.GetAsync(url)).Result)
+
+            using (HttpResponseMessage response = url.WithHeaders(headers ?? new Dictionary<string, string>())
+                .GetAsync().Result)
             {
                 return new Tuple<ResponseInfo, byte[]>(new ResponseInfo
                 {
@@ -64,14 +50,8 @@ namespace Spotify.API.NetCore
 
         public async Task<Tuple<ResponseInfo, byte[]>> DownloadRawAsync(string url, Dictionary<string, string> headers = null)
         {
-            if (headers != null)
-            {
-                foreach (KeyValuePair<string, string> headerPair in headers)
-                {
-                    _client.DefaultRequestHeaders.TryAddWithoutValidation(headerPair.Key, headerPair.Value);
-                }
-            }
-            using (HttpResponseMessage response = await _client.GetAsync(url).ConfigureAwait(false))
+            using (HttpResponseMessage response = await url.WithHeaders(headers ?? new Dictionary<string, string>())
+                .GetAsync().ConfigureAwait(false))
             {
                 return new Tuple<ResponseInfo, byte[]>(new ResponseInfo
                 {
@@ -108,19 +88,10 @@ namespace Spotify.API.NetCore
 
         public Tuple<ResponseInfo, byte[]> UploadRaw(string url, string body, string method, Dictionary<string, string> headers = null)
         {
-            if (headers != null)
-            {
-                foreach (KeyValuePair<string, string> headerPair in headers)
-                {
-                    _client.DefaultRequestHeaders.TryAddWithoutValidation(headerPair.Key, headerPair.Value);
-                }
-            }
-
-            HttpRequestMessage message = new HttpRequestMessage(new HttpMethod(method), url)
-            {
-                Content = new StringContent(body, _encoding)
-            };
-            using (HttpResponseMessage response = Task.Run(() => _client.SendAsync(message)).Result)
+            
+                
+            using (HttpResponseMessage response = url.WithHeaders(headers ?? new Dictionary<string, string>())
+                .SendAsync(new HttpMethod(method), new StringContent(body, _encoding)).Result)
             {
                 return new Tuple<ResponseInfo, byte[]>(new ResponseInfo
                 {
@@ -133,19 +104,8 @@ namespace Spotify.API.NetCore
 
         public async Task<Tuple<ResponseInfo, byte[]>> UploadRawAsync(string url, string body, string method, Dictionary<string, string> headers = null)
         {
-            if (headers != null)
-            {
-                foreach (KeyValuePair<string, string> headerPair in headers)
-                {
-                    _client.DefaultRequestHeaders.TryAddWithoutValidation(headerPair.Key, headerPair.Value);
-                }
-            }
-
-            HttpRequestMessage message = new HttpRequestMessage(new HttpMethod(method), url)
-            {
-                Content = new StringContent(body, _encoding)
-            };
-            using (HttpResponseMessage response = await _client.SendAsync(message))
+            using (HttpResponseMessage response = await url.WithHeaders(headers ?? new Dictionary<string, string>())
+                .SendAsync(new HttpMethod(method), new StringContent(body, _encoding)))
             {
                 return new Tuple<ResponseInfo, byte[]>(new ResponseInfo
                 {

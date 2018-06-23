@@ -87,7 +87,7 @@ namespace Spotify.API.NetCore.Auth
             if (token.Error != null)
                 throw new SpotifyWebApiException($"Error: {token.Error}");
 
-            var spotifyWebApi = new SpotifyWebAPI(_proxyConfig, null)
+            var spotifyWebApi = new SpotifyWebAPI(_proxyConfig)
             {
                 UseAuth = true,
                 AccessToken = token.AccessToken,

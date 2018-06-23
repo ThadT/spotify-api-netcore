@@ -19,15 +19,15 @@ namespace Spotify.API.NetCore
 
         private readonly SpotifyWebBuilder _builder;
 
-        public SpotifyWebAPI() : this(null, null)
+        public SpotifyWebAPI() : this(null)
         {
         }
 
-        public SpotifyWebAPI(ProxyConfig proxyConfig, IHttpClientFactory httpClientFactory)
+        public SpotifyWebAPI(ProxyConfig proxyConfig)
         {
             _builder = new SpotifyWebBuilder();
             UseAuth = true;
-            WebClient = new SpotifyWebClient(httpClientFactory)
+            WebClient = new SpotifyWebClient()
             {
                 JsonSettings =
                     new JsonSerializerSettings
