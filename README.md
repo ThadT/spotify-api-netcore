@@ -32,7 +32,7 @@ Get Spotify catalog information about an album's tracks. Optional parameters can
 |id| The Spotify ID for the album. | `"5O7V8l4SeXTymVp3IesT9C"`
 |[limit]| The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50. | `20`
 |[offset]| The index of the first track to return. Default: 0 (the first object). | `0`
-|[market]| An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking. | `"DE"`
+|[market]| An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking. | `"TR"`
 
 Returns a SimpleTrack wrapped inside a Paging-object
 
@@ -52,7 +52,7 @@ Get Spotify catalog information for a single album.
 |Name|Description|Example|
 |--------------|-------------------------|-------------------------|
 |id| The Spotify ID for the album. | `5O7V8l4SeXTymVp3IesT9C`
-|[market]| An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking. | `"DE"`
+|[market]| An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking. | `"TR"`
 
 Returns a FullAlbum
 
