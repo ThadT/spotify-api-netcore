@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using Spotify.API.NetCore.Enums;
@@ -27,7 +28,19 @@ namespace Spotify.API.NetCore.Auth
         public void DoAuth()
         {
             string uri = GetUri();
-            Process.Start(uri);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", uri);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", uri);
+            }
+            else
+            {
+                uri = uri.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {uri}"));
+            }
         }
 
         private string GetUri()
