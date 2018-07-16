@@ -1,0 +1,25 @@
+﻿{
+  "birthdate": "1937-06-01",
+  "country": "SE",
+  "display_name": "Baris Ceviz",
+  "email": "email@example.com",
+  "external_urls": {
+    "spotify": "https://open.spotify.com/user/peacecwz"
+  },
+  "followers": {
+    "href": null,
+    "total": 3829
+  },
+  "href": "https://api.spotify.com/v1/users/peacecwz",
+  "id": "peacecwz",
+  "images": [
+    {
+      "height": 200,
+      "url": "https://avatars1.githubusercontent.com/u/6075637?s=460&v=4",
+      "width": 200
+    }
+  ],
+  "product": "premium",
+  "type": "user",
+  "uri": "spotify:user:peacecwz"
+}

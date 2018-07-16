@@ -1,0 +1,9 @@
+﻿{
+  "external_urls": {
+    "spotify": "https://open.spotify.com/user/peacecwz"
+  },
+  "href": "https://api.spotify.com/v1/users/peacecwz",
+  "id": "peacecwz",
+  "type": "user",
+  "uri": "spotify:user:peacecwz"
+}
