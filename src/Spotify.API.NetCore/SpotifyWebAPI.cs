@@ -11,7 +11,6 @@ using Spotify.API.NetCore.Models;
 
 namespace Spotify.API.NetCore
 {
-    // ReSharper disable once InconsistentNaming
     public sealed class SpotifyWebAPI : IDisposable
     {
         [Obsolete("This Property will be removed soon. Please use SpotifyWebBuilder.APIBase")]
